@@ -24,11 +24,17 @@ class _PerguntaAppState extends State<PerguntaApp> {
           children: <Widget>[
             Questao(perguntas[_perguntaSelecionada]),
             ElevatedButton(
-                onPressed: _responder, child: const Text('Resposta 1')),
+              onPressed: _responder,
+              child: const Text('Resposta 1'),
+            ),
             ElevatedButton(
-                onPressed: _responder, child: const Text('Resposta 2')),
+              onPressed: _responder,
+              child: const Text('Resposta 2'),
+            ),
             ElevatedButton(
-                onPressed: _responder, child: const Text('Resposta 3'))
+              onPressed: _responder,
+              child: const Text('Resposta 3'),
+            )
           ],
         ),
       ),
