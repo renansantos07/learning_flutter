@@ -55,7 +55,23 @@ class MyHome extends StatelessWidget {
           Column(
             children: _transactions.map((elem) {
               return Card(
-                child: Text(elem.title),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      child: Text(
+                        elem.value.toString(),
+                      ),
+                    ),
+                    Column(
+                      children: <Widget>[
+                        Text(elem.title),
+                        Text(
+                          elem.date.toString(),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               );
             }).toList(),
           ),
