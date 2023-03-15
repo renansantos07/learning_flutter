@@ -52,8 +52,12 @@ class MyHome extends StatelessWidget {
               child: Text("Grafico"),
             ),
           ),
-          Card(
-            child: const Text("Lista de transações"),
+          Column(
+            children: _transactions.map((elem) {
+              return Card(
+                child: Text(elem.title),
+              );
+            }).toList(),
           ),
         ],
       ),
