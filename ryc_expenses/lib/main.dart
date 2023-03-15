@@ -18,6 +18,9 @@ class ExpensesApp extends StatelessWidget {
 class MyHome extends StatelessWidget {
   MyHome({super.key});
 
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _valueController = TextEditingController();
+
   final List<Transaction> _transactions = [
     Transaction(
       id: "t1",
@@ -98,13 +101,15 @@ class MyHome extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               child: Column(
                 children: <Widget>[
-                  const TextField(
-                    decoration: InputDecoration(
+                  TextField(
+                    controller: _titleController,
+                    decoration: const InputDecoration(
                       labelText: 'Título',
                     ),
                   ),
-                  const TextField(
-                    decoration: InputDecoration(
+                  TextField(
+                    controller: _valueController,
+                    decoration: const InputDecoration(
                       labelText: 'Valor (R\$)',
                     ),
                   ),
