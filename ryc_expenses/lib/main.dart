@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 main() => runApp(const ExpensesApp());
@@ -20,10 +22,23 @@ class MyHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.amber,
         title: const Text("Despesas Pessoais"),
       ),
-      body: const Center(
-        child: Text('Tela inicial'),
+      body: Column(
+        children: <Widget>[
+          Container(
+            width: double.infinity,
+            child: const Card(
+              color: Colors.amber,
+              elevation: 5,
+              child: Text("Grafico"),
+            ),
+          ),
+          Card(
+            child: const Text("Lista de transações"),
+          ),
+        ],
       ),
     );
   }
