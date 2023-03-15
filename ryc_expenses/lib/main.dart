@@ -24,16 +24,18 @@ class MyHome extends StatelessWidget {
         backgroundColor: Colors.amber,
         title: const Text("Despesas Pessoais"),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: const <Widget>[
-          Card(
-            color: Colors.amber,
-            elevation: 5,
-            child: Text("Grafico"),
-          ),
-          TransactionUser(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: const <Widget>[
+            Card(
+              color: Colors.amber,
+              elevation: 5,
+              child: Text("Grafico"),
+            ),
+            TransactionUser(),
+          ],
+        ),
       ),
     );
   }
