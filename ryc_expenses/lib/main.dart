@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:ryc_expenses/models/transaction.dart';
 
 main() => runApp(const ExpensesApp());
 
@@ -9,14 +10,29 @@ class ExpensesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       home: MyHome(),
     );
   }
 }
 
 class MyHome extends StatelessWidget {
-  const MyHome({super.key});
+  MyHome({super.key});
+
+  final List<Transaction> _transactions = [
+    Transaction(
+      id: "t1",
+      title: "title 1",
+      value: 23.90,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: "t2",
+      title: "title 2",
+      value: 50.90,
+      date: DateTime.now(),
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +42,10 @@ class MyHome extends StatelessWidget {
         title: const Text("Despesas Pessoais"),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
-            width: double.infinity,
             child: const Card(
               color: Colors.amber,
               elevation: 5,
