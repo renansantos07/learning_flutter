@@ -21,7 +21,7 @@ class ExpensesApp extends StatelessWidget {
           secondary: Colors.purple,
         ),
         textTheme: tema.textTheme.copyWith(
-          headline6: const TextStyle(
+          headlineLarge: const TextStyle(
             fontFamily: 'OpenSans',
             fontSize: 18,
             fontWeight: FontWeight.bold,
