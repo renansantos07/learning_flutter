@@ -22,13 +22,16 @@ class ExpensesApp extends StatelessWidget {
           secondary: Colors.purple,
         ),
         textTheme: tema.textTheme.copyWith(
-          headlineLarge: const TextStyle(
-            fontFamily: 'OpenSans',
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
+            headlineLarge: const TextStyle(
+              fontFamily: 'OpenSans',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+            button: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            )),
         appBarTheme: const AppBarTheme(
           titleTextStyle: TextStyle(
             fontFamily: 'OpenSans',
@@ -49,26 +52,7 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
-  final List<Transaction> _transactions = [
-    Transaction(
-      id: 't0',
-      title: 'Novo Tênis de Corrida',
-      value: 310.76,
-      date: DateTime.now().subtract(const Duration(days: 30)),
-    ),
-    Transaction(
-      id: 't1',
-      title: 'Novo Tênis de Corrida',
-      value: 310.76,
-      date: DateTime.now().subtract(const Duration(days: 3)),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Conta de Luz',
-      value: 211.30,
-      date: DateTime.now().subtract(const Duration(days: 2)),
-    ),
-  ];
+  final List<Transaction> _transactions = [];
 
   List<Transaction> get _recentTransactions {
     return _transactions.where((element) {
@@ -78,12 +62,12 @@ class _MyHomeState extends State<MyHome> {
     }).toList();
   }
 
-  _addTransaction(String title, double value) {
+  _addTransaction(String title, double value, DateTime date) {
     final newTransaction = Transaction(
       id: Random().nextDouble().toString(),
       title: title,
       value: value,
-      date: DateTime.now(),
+      date: date,
     );
 
     setState(() {
@@ -91,6 +75,14 @@ class _MyHomeState extends State<MyHome> {
     });
 
     Navigator.of(context).pop();
+  }
+
+  _removeTransaction(String id) {
+    setState(() {
+      _transactions.removeWhere((element) {
+        return element.id == id;
+      });
+    });
   }
 
   _openTransactionModal(BuildContext context) {
@@ -119,7 +111,7 @@ class _MyHomeState extends State<MyHome> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Chart(_recentTransactions),
-            TransactionList(_transactions)
+            TransactionList(_transactions, _removeTransaction)
           ],
         ),
       ),

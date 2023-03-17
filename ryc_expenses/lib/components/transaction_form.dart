@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class TransactionForm extends StatefulWidget {
-  final void Function(String, double) _addTransaction;
+  final void Function(String, double, DateTime) _addTransaction;
 
   TransactionForm(this._addTransaction);
 
@@ -11,18 +12,33 @@ class TransactionForm extends StatefulWidget {
 
 class _TransactionFormState extends State<TransactionForm> {
   final TextEditingController _titleController = TextEditingController();
-
   final TextEditingController _valueController = TextEditingController();
+  DateTime _selectedDate = DateTime.now();
 
   onSubmit() {
     final title = _titleController.text;
     final value = double.tryParse(_valueController.text) ?? 0;
 
-    if (title.isEmpty || value <= 0) {
+    if (title.isEmpty || value <= 0 || _selectedDate == null) {
       return;
     }
 
-    widget._addTransaction(title, value);
+    widget._addTransaction(title, value, _selectedDate);
+  }
+
+  _showDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2019),
+      lastDate: DateTime.now(),
+    ).then((value) {
+      if (value != null) {
+        setState(() {
+          _selectedDate = value;
+        });
+      }
+    });
   }
 
   @override
@@ -47,6 +63,25 @@ class _TransactionFormState extends State<TransactionForm> {
                   const TextInputType.numberWithOptions(decimal: true),
               decoration: const InputDecoration(
                 labelText: 'Valor (R\$)',
+              ),
+            ),
+            Container(
+              height: 70,
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text(_selectedDate == null
+                        ? "Nenhuma data selecionada!"
+                        : 'Data Selecionada: ${DateFormat('dd/MM/y').format(_selectedDate)}'),
+                  ),
+                  TextButton(
+                    onPressed: _showDatePicker,
+                    child: const Text(
+                      "Selecione a data!",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  )
+                ],
               ),
             ),
             Row(

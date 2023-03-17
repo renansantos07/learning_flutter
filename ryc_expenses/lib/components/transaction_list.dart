@@ -4,13 +4,14 @@ import 'package:intl/intl.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
+  final Function(String) onRemove;
 
-  TransactionList(this.transactions);
+  TransactionList(this.transactions, this.onRemove);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 620,
       child: transactions.isEmpty
           ? Column(
               children: [
@@ -62,43 +63,13 @@ class TransactionList extends StatelessWidget {
                       DateFormat('d MMM y').format(elem.date),
                       style: const TextStyle(color: Colors.grey),
                     ),
-                  ),
-                );
-                Card(
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 10),
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                          color: Theme.of(context).colorScheme.primary,
-                          width: 2,
-                        )),
-                        padding: const EdgeInsets.all(10),
-                        child: Text(
-                          'R\$ ${elem.value.toStringAsFixed(2)}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            elem.title,
-                            style: Theme.of(context).textTheme.headlineLarge,
-                          ),
-                          Text(
-                            DateFormat('d MMM y').format(elem.date),
-                            style: const TextStyle(color: Colors.grey),
-                          )
-                        ],
-                      )
-                    ],
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete),
+                      color: Theme.of(context).errorColor,
+                      onPressed: () {
+                        onRemove(elem.id);
+                      },
+                    ),
                   ),
                 );
               },
