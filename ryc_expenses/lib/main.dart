@@ -1,9 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:ryc_expenses/components/transaction_form.dart';
 import 'package:ryc_expenses/components/transaction_list.dart';
 import 'package:ryc_expenses/models/transaction.dart';
+import 'dart:math';
 
 main() => runApp(const ExpensesApp());
 
@@ -12,8 +11,31 @@ class ExpensesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MyHome(),
+    final ThemeData tema = ThemeData();
+
+    return MaterialApp(
+      home: const MyHome(),
+      theme: tema.copyWith(
+        colorScheme: tema.colorScheme.copyWith(
+          primary: Colors.amber,
+          secondary: Colors.purple,
+        ),
+        textTheme: tema.textTheme.copyWith(
+          headline6: const TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        appBarTheme: const AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
     );
   }
 }
@@ -26,13 +48,19 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
-  final List<Transaction> _transactions = [
+  final _transactions = [
     Transaction(
-      id: 'id',
-      title: 'title',
-      value: 30.99,
+      id: 't1',
+      title: 'Novo Tênis de Corrida',
+      value: 310.76,
       date: DateTime.now(),
-    )
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Conta de Luz',
+      value: 211.30,
+      date: DateTime.now(),
+    ),
   ];
 
   _addTransaction(String title, double value) {
@@ -46,6 +74,8 @@ class _MyHomeState extends State<MyHome> {
     setState(() {
       _transactions.add(newTransaction);
     });
+
+    Navigator.of(context).pop();
   }
 
   _openTransactionModal(BuildContext context) {
@@ -61,7 +91,6 @@ class _MyHomeState extends State<MyHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.amber,
         title: const Text("Despesas Pessoais"),
         actions: <Widget>[
           IconButton(
@@ -75,7 +104,6 @@ class _MyHomeState extends State<MyHome> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             const Card(
-              color: Colors.amber,
               elevation: 5,
               child: Text("Grafico"),
             ),
@@ -84,7 +112,6 @@ class _MyHomeState extends State<MyHome> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.amber,
         onPressed: () => _openTransactionModal(context),
         child: const Icon(Icons.add),
       ),
