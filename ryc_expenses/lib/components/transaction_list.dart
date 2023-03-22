@@ -13,27 +13,32 @@ class TransactionList extends StatelessWidget {
     return Container(
       height: 620,
       child: transactions.isEmpty
-          ? Column(
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "Nenhuma Transação Casatrada!",
-                  style: Theme.of(context).textTheme.headlineLarge,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  height: 200,
-                  child: Image.asset(
-                    'assets/images/waiting.png',
-                    fit: BoxFit.cover,
+          ? LayoutBuilder(builder: (context, constraints) {
+              return Column(
+                children: [
+                  SizedBox(
+                    height: constraints.maxHeight * 0.05,
                   ),
-                ),
-              ],
-            )
+                  Container(
+                    height: constraints.maxHeight * 0.2,
+                    child: Text(
+                      "Nenhuma Transação Casatrada!",
+                      style: Theme.of(context).textTheme.headlineLarge,
+                    ),
+                  ),
+                  SizedBox(
+                    height: constraints.maxHeight * 0.05,
+                  ),
+                  Container(
+                    height: constraints.maxHeight * 0.6,
+                    child: Image.asset(
+                      'assets/images/waiting.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ],
+              );
+            })
           : ListView.builder(
               itemCount: transactions.length,
               itemBuilder: (ctx, index) {
