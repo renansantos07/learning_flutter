@@ -6,7 +6,9 @@ import 'package:ryc_shop/models/product_list.dart';
 import 'package:ryc_shop/pages/cart_page.dart';
 import 'package:ryc_shop/pages/order_page.dart';
 import 'package:ryc_shop/pages/product_detail_page.dart';
+import 'package:ryc_shop/pages/product_form_page.dart';
 import 'package:ryc_shop/pages/product_overview_page.dart';
+import 'package:ryc_shop/pages/products_page.dart';
 import 'package:ryc_shop/utils/app_routes.dart';
 
 void main() {
@@ -39,6 +41,8 @@ class MyApp extends StatelessWidget {
           AppRoutes.productDetail: (context) => const ProductDetailPage(),
           AppRoutes.cart: (context) => const CartPage(),
           AppRoutes.orders: (context) => const OrdersPage(),
+          AppRoutes.products: (context) => const ProductsPage(),
+          AppRoutes.productForm: (ctx) => const ProductFormPage(),
         },
         debugShowCheckedModeBanner: false,
       ),
