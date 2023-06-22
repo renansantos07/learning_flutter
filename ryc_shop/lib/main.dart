@@ -10,8 +10,19 @@ import 'package:ryc_shop/pages/product_form_page.dart';
 import 'package:ryc_shop/pages/product_overview_page.dart';
 import 'package:ryc_shop/pages/products_page.dart';
 import 'package:ryc_shop/utils/app_routes.dart';
+import 'dart:io';
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
 
 void main() {
+  HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
 
