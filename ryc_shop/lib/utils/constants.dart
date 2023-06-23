@@ -9,5 +9,5 @@ class Constants {
       'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
   static const signInWithPasswordBaseUrl =
       'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
-  static const webApiKey = 'AIzaSyAsqepNtwWD32VRRd87CcRzjg2e-wgUQ8A';
+  static const webApiKey = '';
 }

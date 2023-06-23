@@ -14,6 +14,8 @@ import 'package:ryc_shop/pages/products_page.dart';
 import 'package:ryc_shop/utils/app_routes.dart';
 import 'dart:io';
 
+import 'package:ryc_shop/utils/custom_route.dart';
+
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
@@ -62,12 +64,15 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch().copyWith(
-            primary: const Color.fromRGBO(108, 206, 242, 1),
-            secondary: const Color.fromRGBO(154, 172, 245, 1),
-          ),
-          fontFamily: 'Lato',
-        ),
+            colorScheme: ColorScheme.fromSwatch().copyWith(
+              primary: const Color.fromRGBO(108, 206, 242, 1),
+              secondary: const Color.fromRGBO(154, 172, 245, 1),
+            ),
+            fontFamily: 'Lato',
+            pageTransitionsTheme: PageTransitionsTheme(builders: {
+              TargetPlatform.android: CustomPageTransitionsBuilder(),
+              TargetPlatform.iOS: CustomPageTransitionsBuilder(),
+            })),
         routes: {
           AppRoutes.authOrHome: (ctx) => const AuthOrHomePage(),
           AppRoutes.productDetail: (context) => const ProductDetailPage(),
