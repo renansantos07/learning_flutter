@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ryc_shop/models/auth_notifier.dart';
 import 'package:ryc_shop/models/cart.dart';
 import 'package:ryc_shop/models/order_list.dart';
 import 'package:ryc_shop/models/product_list.dart';
+import 'package:ryc_shop/pages/auth_or%20home_page.dart';
 import 'package:ryc_shop/pages/cart_page.dart';
 import 'package:ryc_shop/pages/order_page.dart';
 import 'package:ryc_shop/pages/product_detail_page.dart';
@@ -34,9 +36,28 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ProductList()),
+        ChangeNotifierProvider(create: (_) => Auth()),
+        ChangeNotifierProxyProvider<Auth, ProductList>(
+          create: (_) => ProductList(),
+          update: (context, auth, previous) {
+            return ProductList(
+              auth.token ?? '',
+              auth.userId ?? '',
+              previous?.items ?? [],
+            );
+          },
+        ),
+        ChangeNotifierProxyProvider<Auth, OrderList>(
+          create: (_) => OrderList(),
+          update: (ctx, auth, previous) {
+            return OrderList(
+              auth.token ?? '',
+              auth.userId ?? '',
+              previous?.items ?? [],
+            );
+          },
+        ),
         ChangeNotifierProvider(create: (_) => Cart()),
-        ChangeNotifierProvider(create: (_) => OrderList())
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -48,7 +69,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Lato',
         ),
         routes: {
-          AppRoutes.home: (ctx) => const ProductOverviewPage(),
+          AppRoutes.authOrHome: (ctx) => const AuthOrHomePage(),
           AppRoutes.productDetail: (context) => const ProductDetailPage(),
           AppRoutes.cart: (context) => const CartPage(),
           AppRoutes.orders: (context) => const OrdersPage(),
